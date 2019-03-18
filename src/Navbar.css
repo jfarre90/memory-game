@@ -7,7 +7,7 @@ header {
   padding: 0 15px;
 }
 
-h2 {
+header h1 {
   text-align: center;
 }
 
@@ -54,7 +54,7 @@ header nav li:last-child {
     flex-direction: column;
   }
 
-  h2{
+  header h2{
     margin-bottom: 15px;
   }
 }

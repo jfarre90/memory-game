@@ -1,24 +1,29 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './Box.css';
 
-class Box extends Component {
-  static propTypes = {
-    id: PropTypes.number.isRequired,
-    backgroundColor: PropTypes.string.isRequired,
-    showing: PropTypes.bool.isRequired
+
+const Box = (props) => {
+  let style = {};
+  if (props.showing) {
+    style.backgroundColor = props.backgroundColor;
   }
   
-  render() {
-    let style = {};
-    if (this.props.showing) {
-      style.backgroundColor = this.props.backgroundColor;
-    }
-    
-    return (
-      <div className="box" style={style}></div>
-    );
-  }
+  return (
+    <div 
+      onClick= {props.onClick} 
+      className="box" 
+      style={style}
+    />
+  );
+  
+}
+
+
+Box.propTypes = {
+  backgroundColor: PropTypes.string.isRequired,
+  showing: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default Box;

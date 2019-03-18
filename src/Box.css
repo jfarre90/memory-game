@@ -1,8 +1,8 @@
 .box {
   margin: 10px;
+  height: 150px;
   min-width: 100px;
   width: 10%;
-  height: 150px;
   background-color: grey;
   border: 6px solid grey;
   border-radius: 25px;

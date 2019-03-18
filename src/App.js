@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Shuffle from 'shuffle-array';
 import Navbar from './Navbar';
-import DisplayBoxes from './DisplayBoxes';
+import Box from './Box';
 import './App.css';
 
 
@@ -37,13 +37,46 @@ class App extends Component {
     
     boxes= Shuffle(boxes);
     this.state = {boxes, noClick:false};
+    
+    this.handleClick = this.handleClick.bind(this);
+    this.handleNewGame = this.handleNewGame.bind(this);
+  }
+  
+  handleNewGame() {
+    let boxes = this.state.boxes.map(b => ({
+      ...b,
+      boxState: BoxState.HIDING
+    }));
+    boxes = Shuffle(boxes);
+    this.setState({boxes});
+  }
+  
+  handleClick(id) {
+    this.setState(prevState => {
+      let boxes = prevState.boxes.map(b => (
+        b.id === id ? {
+          ...b,
+          boxState: b.boxState === BoxState.HIDING ? BoxState.MATCHING : BoxState.HIDING
+        }  : b
+      ));
+      return {boxes};
+    })
   }
   
   render() {
+    const boxes = this.state.boxes.map((b) => (
+      <Box 
+        key={b.id} 
+        showing={b.boxState !== BoxState.HIDING} 
+        backgroundColor={b.backgroundColor}
+        onClick={()=>this.handleClick(b.id)}
+      /> 
+    ));
+    
     return (
-      <div className="App">
-        <Navbar />
-        <DisplayBoxes boxes={this.state.boxes} />
+      <div>
+        <Navbar onNewGame={this.handleNewGame} />
+        {boxes}
       </div>
     );
   }
