@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './Box.css';
 
 class Box extends Component {
-  static PropTypes = {
+  static propTypes = {
     id: PropTypes.number.isRequired,
     backgroundColor: PropTypes.string.isRequired,
     showing: PropTypes.bool.isRequired

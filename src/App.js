@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Shuffle from 'shuffle-array';
 import Navbar from './Navbar';
-import DisplayBoxes from 'DisplayBoxes';
+import DisplayBoxes from './DisplayBoxes';
 import './App.css';
 
 
@@ -37,8 +37,6 @@ class App extends Component {
     
     boxes= Shuffle(boxes);
     this.state = {boxes, noClick:false};
-    
-    this.onSelection = this.onSelection.bind(this);
   }
   
   render() {
