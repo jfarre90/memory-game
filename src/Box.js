@@ -7,6 +7,7 @@ const Box = (props) => {
   let style = {};
   if (props.showing) {
     style.backgroundColor = props.backgroundColor;
+    style.borderColor = props.borderColor;
   }
   
   return (
@@ -22,6 +23,7 @@ const Box = (props) => {
 
 Box.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
+  borderColor: PropTypes.string,
   showing: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
 }
