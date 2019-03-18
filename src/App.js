@@ -52,15 +52,50 @@ class App extends Component {
   }
   
   handleClick(id) {
-    this.setState(prevState => {
-      let boxes = prevState.boxes.map(b => (
-        b.id === id ? {
-          ...b,
-          boxState: b.boxState === BoxState.HIDING ? BoxState.MATCHING : BoxState.HIDING
-        }  : b
-      ));
-      return {boxes};
-    })
+    const mapBoxState = (boxes, idsToChange, newBoxState) => {
+      return boxes.map(b => {
+        if (idsToChange.includes(b.id)) {
+          return{
+            ...b,
+            boxState: newBoxState
+          };
+        }
+      return b;
+      });
+    }
+    
+    const foundBox = this.state.boxes.find(b => b.id === id);
+    
+    if (this.state.noClick || foundBox.boxState !== BoxState.HIDING) {
+      return;
+    }
+    
+    let noClick = false; //We use this to decide if the user can click again or not.
+    
+    let boxes = mapBoxState(this.state.boxes, [id], BoxState.SHOWING);
+    
+    const showingBoxes = boxes.filter((b) => b.boxState === BoxState.SHOWING);
+    
+    const ids = showingBoxes.map(b => b.id);
+    
+    if (showingBoxes.length === 2 && 
+        showingBoxes[0].backgroundColor === showingBoxes[1].backgroundColor) {
+      boxes = mapBoxState(boxes, ids, BoxState.MATCHING);
+      
+    } else if(showingBoxes.length ===2) {
+      let hidingBoxes = mapBoxState(boxes, ids, BoxState.HIDING);
+      noClick = true;
+      
+      this.setState({boxes, noClick}, () => {
+        setTimeout(() => {
+          //this timeout is to wait for a certain time before making the boxes dissapear
+          this.setState({boxes: hidingBoxes, noClick: false});
+        }, 1300);
+      });
+      return;
+    }
+    
+    this.setState({boxes, noClick});
   }
   
   render() {
