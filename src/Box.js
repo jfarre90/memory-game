@@ -17,6 +17,7 @@ const Box = (props) => {
       className="box" 
       style={style}
     />
+    
   );
   
 }

@@ -101,20 +101,35 @@ class App extends Component {
   }
   
   render() {
-    const boxes = this.state.boxes.map((b) => (
-      <Box 
-        key={b.id} 
-        showing={b.boxState !== BoxState.HIDING}
-        matched={b.boxState === BoxState.MATCHING}
-        backgroundColor={b.backgroundColor}
-        onClick={()=>this.handleClick(b.id)}
-      /> 
-    ));
+    const hiddenBoxes = this.state.boxes.filter(b => b.boxState === BoxState.HIDING
+    );
+    
+    let boxes;
+    
+    
+    if (hiddenBoxes.length === 0) {
+      boxes = 
+        <div>
+          <h1>WINNER, WINNER, CHICKEN DINNER!!!!!</h1>
+        </div> 
+    } else {
+      boxes = this.state.boxes.map((b) => (
+        <Box 
+          key={b.id} 
+          showing={b.boxState !== BoxState.HIDING}
+          matched={b.boxState === BoxState.MATCHING}
+          backgroundColor={b.backgroundColor}
+          onClick={()=>this.handleClick(b.id)}
+        /> 
+      ));
+    }
     
     return (
       <div>
         <Navbar onNewGame={this.handleNewGame} />
-        {boxes}
+        <div className="box-container">
+          {boxes}
+        </div>
       </div>
     );
   }
