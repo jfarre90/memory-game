@@ -16,25 +16,26 @@ class App extends Component {
   constructor(props) {
     super(props);
     
-    let boxes = [
-      {id:0, boxState: BoxState.HIDING, backgroundColor: 'red', borderColor: 'grey'},
-      {id:1, boxState: BoxState.HIDING, backgroundColor: 'red', borderColor: 'grey'},
-      {id:2, boxState: BoxState.HIDING, backgroundColor: 'navy', borderColor: 'grey'},
-      {id:3, boxState: BoxState.HIDING, backgroundColor: 'navy', borderColor: 'grey'},
-      {id:4, boxState: BoxState.HIDING, backgroundColor: 'green', borderColor: 'grey'},
-      {id:5, boxState: BoxState.HIDING, backgroundColor: 'green', borderColor: 'grey'},
-      {id:6, boxState: BoxState.HIDING, backgroundColor: 'yellow', borderColor: 'grey'},
-      {id:7, boxState: BoxState.HIDING, backgroundColor: 'yellow', borderColor: 'grey'},
-      {id:8, boxState: BoxState.HIDING, backgroundColor: 'black', borderColor: 'grey'},
-      {id:9, boxState: BoxState.HIDING, backgroundColor: 'black', borderColor: 'grey'},
-      {id:10, boxState: BoxState.HIDING, backgroundColor: 'purple', borderColor: 'grey'},
-      {id:11, boxState: BoxState.HIDING, backgroundColor: 'purple', borderColor: 'grey'},
-      {id:12, boxState: BoxState.HIDING, backgroundColor: 'pink', borderColor: 'grey'},
-      {id:13, boxState: BoxState.HIDING, backgroundColor: 'pink', borderColor: 'grey'},
-      {id:14, boxState: BoxState.HIDING, backgroundColor: 'lightskyblue', borderColor: 'grey'},
-      {id:15, boxState: BoxState.HIDING, backgroundColor: 'lightskyblue', borderColor: 'grey'}
+    const initialBoxes = [
+      {id:0, boxState: BoxState.HIDING, backgroundColor: 'red'},
+      {id:1, boxState: BoxState.HIDING, backgroundColor: 'red'},
+      {id:2, boxState: BoxState.HIDING, backgroundColor: 'navy'},
+      {id:3, boxState: BoxState.HIDING, backgroundColor: 'navy'},
+      {id:4, boxState: BoxState.HIDING, backgroundColor: 'green'},
+      {id:5, boxState: BoxState.HIDING, backgroundColor: 'green'},
+      {id:6, boxState: BoxState.HIDING, backgroundColor: 'yellow'},
+      {id:7, boxState: BoxState.HIDING, backgroundColor: 'yellow'},
+      {id:8, boxState: BoxState.HIDING, backgroundColor: 'black'},
+      {id:9, boxState: BoxState.HIDING, backgroundColor: 'black'},
+      {id:10, boxState: BoxState.HIDING, backgroundColor: 'purple'},
+      {id:11, boxState: BoxState.HIDING, backgroundColor: 'purple'},
+      {id:12, boxState: BoxState.HIDING, backgroundColor: 'pink'},
+      {id:13, boxState: BoxState.HIDING, backgroundColor: 'pink'},
+      {id:14, boxState: BoxState.HIDING, backgroundColor: 'lightskyblue'},
+      {id:15, boxState: BoxState.HIDING, backgroundColor: 'lightskyblue'}
     ];
     
+    let boxes = initialBoxes.slice();
     boxes= Shuffle(boxes);
     this.state = {boxes, noClick:false};
     
@@ -47,6 +48,7 @@ class App extends Component {
       ...b,
       boxState: BoxState.HIDING
     }));
+    
     boxes = Shuffle(boxes);
     this.setState({boxes});
   }
@@ -54,20 +56,13 @@ class App extends Component {
   handleClick(id) {
     const mapBoxState = (boxes, idsToChange, newBoxState) => {
       return boxes.map(b => {
-        if (idsToChange.includes(b.id) && newBoxState !== BoxState.MATCHING) {
+        if (idsToChange.includes(b.id)) {
           return{
             ...b,
             boxState: newBoxState
           };
-        } else if (idsToChange.includes(b.id) && newBoxState === BoxState.MATCHING){
-          return{
-            ...b,
-            backgroundColor: 'white',
-            borderColor:'white',
-            boxState: newBoxState
-          };
-        }
-      return b;
+        } 
+        return b;
       });
     }
     
@@ -109,9 +104,9 @@ class App extends Component {
     const boxes = this.state.boxes.map((b) => (
       <Box 
         key={b.id} 
-        showing={b.boxState !== BoxState.HIDING} 
+        showing={b.boxState !== BoxState.HIDING}
+        matched={b.boxState === BoxState.MATCHING}
         backgroundColor={b.backgroundColor}
-        borderColor={b.borderColor}
         onClick={()=>this.handleClick(b.id)}
       /> 
     ));

@@ -5,10 +5,11 @@ import './Box.css';
 
 const Box = (props) => {
   let style = {};
-  if (props.showing) {
+  if (props.showing && !props.matched) {
     style.backgroundColor = props.backgroundColor;
-    style.borderColor = props.borderColor;
-  }
+  } else if (props.matched) {
+    style.opacity = 0;
+  } 
   
   return (
     <div 
@@ -23,7 +24,8 @@ const Box = (props) => {
 
 Box.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
-  borderColor: PropTypes.string,
+  opacity: PropTypes.number.isrequired,
+  matched: PropTypes.bool.isRequired,
   showing: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
 }
