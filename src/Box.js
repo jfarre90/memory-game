@@ -24,7 +24,6 @@ const Box = (props) => {
 
 Box.propTypes = {
   backgroundColor: PropTypes.string.isRequired,
-  opacity: PropTypes.number.isrequired,
   matched: PropTypes.bool.isRequired,
   showing: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
