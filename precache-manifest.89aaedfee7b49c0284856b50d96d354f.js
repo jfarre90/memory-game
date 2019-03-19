@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/memory-game/static/js/2.7fb9d389.chunk.js"
   },
   {
-    "revision": "665b74ee578abdd36df6f86047b560dd",
+    "revision": "779fd01429178a874e834c88e648fb72",
     "url": "/memory-game/index.html"
   }
 ];
